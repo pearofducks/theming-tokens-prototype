@@ -1,0 +1,17 @@
+{
+  "name": "nmp-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "imports": {
+    "#themes": "./themes/index.js"
+  },
+  "dependencies": {
+    "@sindresorhus/slugify": "^2.1.1"
+  }
+}
