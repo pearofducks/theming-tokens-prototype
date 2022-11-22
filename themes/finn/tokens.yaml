@@ -1,7 +1,9 @@
 ---
 surface:
   _:
-    _: white
+    _:
+      $DARK: black
+      $LIGHT: white
     subdued: bluegray-50
     hover: bluegray-100
     pressed: gray-200

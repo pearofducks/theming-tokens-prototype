@@ -8,25 +8,28 @@ const toCssVars = ([k, v]) => `--f-${k}: var(--f-${v});`
  * @arg {string} prefix
  * @returns {Object.<string, (object | string)>}
  */
-const walkAndJoin = (obj, _prefix = '') => Object.entries(obj).reduce((acc, [_name, entry]) => {
-  const name = []
-  if (_prefix) name.push(_prefix)
-  if (_name !== '_') name.push(_name)
-  const token = name.join('-')
-  acc[token] = typeof entry === 'object' ? walkAndJoin(entry, token) : entry
-  return acc
-}, {})
-
-/**
- * @arg {Object.<string, (object | string)>} obj
- * @returns {Object.<string, string>}
- */
-const flatten = (obj, res = {}) => {
-  Object.entries(obj).forEach(([k, v]) => {
-    if (typeof v === 'object') flatten(v, res)
-    else res[k] = v
-  })
-  return res
+const process = (obj) => {
+  const result = {
+    light: {},
+    dark: {}
+  }
+  const walk = (obj, _prefix = '') => {
+    for (const [_name, entry] of Object.entries(obj)) {
+      const name = []
+      if (_prefix) name.push(_prefix)
+      if (_name !== '_') name.push(_name)
+      const token = name.join('-')
+      if (typeof entry === 'object') walk(entry, token)
+      else {
+        if (_name === '$DARK') result.dark[_prefix] = entry
+        else if (_name === '$LIGHT') result.light[_prefix] = entry
+        else result.light[token] = entry
+      }
+    }
+  }
+  walk(obj)
+  console.log({ result })
+  return result
 }
 
 /**
@@ -38,5 +41,6 @@ const cssify = obj => Object.entries(obj).reduce((acc, e) => (acc.push(toCssVars
 export const processTokens = async (theme) => {
   const tokens = themes[theme].tokens
   if (!tokens) throw `'tokens' is empty for ${theme}`
-  return cssify(flatten(walkAndJoin(tokens)))
+  // return cssify(flatten(walkAndJoin(tokens)))
+  return cssify(process(tokens).light)
 }
