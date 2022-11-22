@@ -1,6 +1,14 @@
 import * as themes from '#themes'
 
+const wrapDarkMedia = v => `@media (prefers-color-scheme:dark){${v}}`
+
 const toCssVars = ([k, v]) => `--f-${k}: var(--f-${v});`
+
+/**
+ * @arg {Object.<string, string>} obj
+ * @returns {string[]}
+ */
+const cssify = obj => Object.entries(obj).reduce((acc, e) => (acc.push(toCssVars(e)), acc), [])
 
 /**
  * Traverses the object and applies parent-prefixes to children
@@ -28,19 +36,15 @@ const process = (obj) => {
     }
   }
   walk(obj)
-  console.log({ result })
   return result
 }
 
-/**
- * @arg {Object.<string, string>} obj
- * @returns {string[]}
- */
-const cssify = obj => Object.entries(obj).reduce((acc, e) => (acc.push(toCssVars(e)), acc), [])
 
 export const processTokens = async (theme) => {
   const tokens = themes[theme].tokens
   if (!tokens) throw `'tokens' is empty for ${theme}`
-  // return cssify(flatten(walkAndJoin(tokens)))
-  return cssify(process(tokens).light)
+  const processed = process(tokens)
+  const dark = wrapDarkMedia(cssify(processed.dark).join('\n'))
+  const light = cssify(processed.light).join('\n')
+  return light + '\n' + dark
 }
