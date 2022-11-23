@@ -1,4 +1,4 @@
-import colors from '../themes/finn/colors.js'
+import * as themes from '#themes'
 import slugify from '@sindresorhus/slugify'
 
 /**
@@ -36,4 +36,15 @@ const createColorObject = arr => arr.reduce((acc, colorSpec) => {
 /** @arg {CssObject} obj */
 const cssify = obj => Object.entries(obj).reduce((acc, e) => (acc.push(toCssVar(e)), acc), [])
 
-console.log(cssify(createColorObject(colors)))
+const process = (obj) => Object.entries(obj).reduce((acc, [hue, shades]) => {
+  for (const shade of shades) acc[slugify(`${hue} ${shade.weight}`)] = shade.hex
+  return acc
+}, {})
+
+export const processColors = (theme = 'finn') => {
+  const colors = themes[theme].colors
+  const result = cssify(process(colors))
+  console.log(result)
+}
+processColors()
+// console.log(cssify(createColorObject(colors)))

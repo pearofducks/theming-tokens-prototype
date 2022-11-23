@@ -40,7 +40,7 @@ const process = (obj) => {
 }
 
 
-export const processTokens = async (theme) => {
+export const processTokens = (theme) => {
   const tokens = themes[theme].tokens
   if (!tokens) throw `'tokens' is empty for ${theme}`
   const processed = process(tokens)
