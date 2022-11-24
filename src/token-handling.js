@@ -1,6 +1,8 @@
 import * as themes from '#themes'
 
-const wrapDarkMedia = v => `@media (prefers-color-scheme:dark){${v}}`
+export const wrapDarkMedia = v => `@media (prefers-color-scheme:dark) {
+${v}
+}`
 
 const toCssVars = ([k, v]) => `--f-${k}: var(--f-${v});`
 
@@ -14,13 +16,10 @@ const cssify = obj => Object.entries(obj).reduce((acc, e) => (acc.push(toCssVars
  * Traverses the object and applies parent-prefixes to children
  * @arg {Object.<string, (object | string)>} obj
  * @arg {string} prefix
- * @returns {Object.<string, (object | string)>}
+ * @returns {Object.<string, object>}
  */
-const process = (obj) => {
-  const result = {
-    light: {},
-    dark: {}
-  }
+const _process = (obj) => {
+  const result = { light: {}, dark: {} }
   const walk = (obj, _prefix = '') => {
     for (const [_name, entry] of Object.entries(obj)) {
       const name = []
@@ -36,15 +35,12 @@ const process = (obj) => {
     }
   }
   walk(obj)
+  for (const [variant, tokens] of Object.entries(result)) result[variant] = cssify(tokens)
   return result
 }
 
-
-export const processTokens = (theme) => {
+export const handle = (theme) => {
   const tokens = themes[theme].tokens
   if (!tokens) throw `'tokens' is empty for ${theme}`
-  const processed = process(tokens)
-  const dark = wrapDarkMedia(cssify(processed.dark).join('\n'))
-  const light = cssify(processed.light).join('\n')
-  return light + '\n' + dark
+  return _process(tokens)
 }
