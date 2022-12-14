@@ -1,4 +1,4 @@
-import { processTokens } from './src/process.js'
+import { processFile } from './src/process.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import glob from 'glob'
@@ -11,5 +11,4 @@ if (!fs.existsSync(realPath)) throw `${realPath} doesn't seem to exist`
 const inputs = glob.sync(`${realPath}/**/*.y?(a)ml`)
 if (!inputs.length) throw `Nothing found at ${realPath} with the suffix .yml or .yaml`
 
-const result = inputs.map(processTokens)
-console.log({ inputs })
+const tokens = inputs.map(processFile)

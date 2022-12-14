@@ -23,6 +23,6 @@ export const wrapDarkMedia = v => `@media (prefers-color-scheme:dark) {
 ${v}
 }`
 
-const tokenKey = k => `--f-${k}:`
-export const toCSSMap = ([k, v]) => `${tokenKey(k)} var(--f-${v});`
+const tokenKey = k => `--x-${k}:`
+export const toCSSMap = ([k, v]) => `${tokenKey(k)} var(--x-${v});`
 export const toCSSDef = ([k, v]) => `${tokenKey(k)} ${v};`
