@@ -8,7 +8,8 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "node . ./themes/finn"
+    "dev": "node . ./themes/finn",
+    "test": "node test"
   },
   "keywords": [],
   "author": "Dave Honneffer",
