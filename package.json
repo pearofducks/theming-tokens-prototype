@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "node . ./themes/finn",
+    "dev": "node . ./example/itsy-org",
     "test": "node test"
   },
   "keywords": [],
