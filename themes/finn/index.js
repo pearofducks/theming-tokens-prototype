@@ -7,5 +7,5 @@ import drnm from 'drnm'
 
 const __dirname = drnm(import.meta.url)
 
-export const colors = yaml.parse(fs.readFileSync(path.join(__dirname, './colors.yaml'), 'utf-8'))
-export const tokens = yaml.parse(fs.readFileSync(path.join(__dirname, './tokens.yaml'), 'utf-8'))
+export const definitions = yaml.parse(fs.readFileSync(path.join(__dirname, './definitions.yaml'), 'utf-8'))
+export const mappings = yaml.parse(fs.readFileSync(path.join(__dirname, './mappings.yaml'), 'utf-8'))
