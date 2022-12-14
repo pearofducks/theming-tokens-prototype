@@ -8,11 +8,8 @@ if (!themeLocation) throw 'Need a theme location to process'
 const realPath = path.resolve(themeLocation)
 if (!fs.existsSync(realPath)) throw `${realPath} doesn't seem to exist`
 
-
 const inputs = glob.sync(`${realPath}/**/*.y?(a)ml`)
 if (!inputs.length) throw `Nothing found at ${realPath} with the suffix .yml or .yaml`
 
 const result = inputs.map(processTokens)
 console.log({ inputs })
-// const result = processTokens(themes[theme])
-// console.log(result)

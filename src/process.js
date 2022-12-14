@@ -1,11 +1,12 @@
-import { mergeTree, readYaml } from './util.js'
+import { mergeTree, readYaml, toCSSDef, toCSSDef } from './util.js'
 
 export const processTokens = (filePath) => {
-  console.log("TRYING TO READ", filePath)
   const doc = readYaml(filePath)
   if (!doc.token) throw "'token' is required for each document and can be set to either 'defs' or 'maps'"
   const tokenType = doc.token
   delete doc.token
-  const tokens = mergeTree(doc)
-  console.log("PROCESSED", tokens)
+  const merged = mergeTree(doc)
+  const tokens = Object.entries(merged).map(tokenType === 'defs' ? toCSSDef : toCSSMap)
+  console.log(tokens)
+  // turn into tokens based on tokenType
 }
