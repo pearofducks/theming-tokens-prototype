@@ -1,26 +1,27 @@
 ---
 token: maps
+dark: true
 
 surface:
   _:
-    _: white
+    _: black
     subdued: bluegray-50
     hover: bluegray-100
     pressed: gray-200
   selected:
-    _: aqua-50
-    hover: aqua-100
-    pressed: aqua-200
+    _: aqua-900
+    hover: aqua-800
+    pressed: aqua-700
   critical:
     _: red-100
     subdued: red-50
     hover: red-200
     pressed: red-300
   success:
-    _: green-100
-    subdued: green-50
-    hover: green-200
-    pressed: green-300
+    _: green-800
+    subdued: green-900
+    hover: green-700
+    pressed: green-600
   highlight:
     _: aqua-100
     subdued: aqua-50
@@ -38,7 +39,7 @@ surface:
     selected_pressed: aqua-200
 
 border:
-  success: green-600
+  success: green-400
 
 text:
   _: gray-700
