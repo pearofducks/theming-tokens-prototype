@@ -1,3 +1,8 @@
+import fs from 'node:fs'
+import yaml from 'yaml'
+
+export const readYaml = filePath => yaml.parse(fs.readFileSync(filePath, 'utf-8'))
+
 const buildToken = (prefix, name) => {
   const result = []
   if (prefix) result.push(prefix)
