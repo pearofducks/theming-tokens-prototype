@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import yaml from 'yaml'
+import slugify from './slugify.js'
 
 export const readYaml = filePath => yaml.parse(fs.readFileSync(filePath, 'utf-8'))
 
@@ -7,7 +8,7 @@ const buildToken = (prefix, name) => {
   const result = []
   if (prefix) result.push(prefix)
   if (name !== '_') result.push(name)
-  return result.join('-')
+  return slugify(result.join(' '))
 }
 
 export const mergeTree = (innerObj, _prefix = '', result = {}) => {
