@@ -22,6 +22,7 @@ export const mergeTree = (innerObj, _prefix = '', result = {}) => {
 export const wrapDarkMedia = v => `@media (prefers-color-scheme:dark) {
 ${v}
 }`
+
 export const rootWrap = v => `:root, :host {
 ${v}
 }`
