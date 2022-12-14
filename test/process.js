@@ -27,7 +27,7 @@ test('processTokens - dark', () => {
   const darkResult = processTokens({ ...testData.deepTree, token: 'maps', dark: true })
   assert.ok(darkResult.dark)
 
-  const lightResult = processTokens({ ...testData.deepTree, token: 'maps', dark: true })
+  const lightResult = processTokens({ ...testData.deepTree, token: 'maps' })
   assert.not(lightResult.dark)
 })
 
