@@ -1,5 +1,6 @@
 import { processFile } from './src/process.js'
 import { wrapDarkMedia, rootWrap } from './src/util.js'
+import * as lightning from 'lightningcss'
 import fs from 'node:fs'
 import path from 'node:path'
 import glob from 'glob'
@@ -16,4 +17,14 @@ const tokens = inputs.map(processFile)
 const darkTokens = tokens.filter(t => t.dark).flatMap(t => t.tokens)
 const normalTokens = tokens.filter(t => !t.dark).flatMap(t => t.tokens)
 const result = rootWrap(normalTokens.join('\n')) + '\n' + wrapDarkMedia(rootWrap(darkTokens.join('\n')))
-console.log(result)
+
+const { code } = lightning.transform({
+  code: Buffer.from(result),
+  minify: false,
+  targets: {
+    safari: (13 << 16)
+  }
+})
+
+console.log("MINIFIED")
+console.log(code.toString())
