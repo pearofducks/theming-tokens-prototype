@@ -22,7 +22,9 @@ const { code } = lightning.transform({
   code: Buffer.from(result),
   minify: false,
   targets: {
-    safari: (13 << 16)
+    safari: (12 << 16),
+    chrome: (80 << 16),
+    firefox: (80 << 16),
   }
 })
 
