@@ -10,6 +10,7 @@ export const processFile = (filePath) => {
  * @type {Object}
  * @property {boolean} dark
  * @property {Array.<string>} tokens
+ * @property {Object.<string, string>} mergedTokens
  */
 
 /**
@@ -24,5 +25,5 @@ export const processTokens = (tokenTree) => {
   delete tokenTree.token
   const merged = mergeTree(tokenTree)
   const tokens = Object.entries(merged).map(tokenType === 'defs' ? toCSSDef : toCSSMap)
-  return { dark: isDark, tokens }
+  return { dark: isDark, tokens, mergedTokens: merged }
 }
