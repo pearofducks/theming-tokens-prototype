@@ -4,7 +4,7 @@ import * as lightning from 'lightningcss'
 import path from 'node:path'
 import glob from 'glob'
 
-export default function (folderPath, options) {
+export default function (folderPath, options = {}) {
   const CWD = process.cwd()
   const realPath = path.join(CWD, folderPath)
   const inputs = glob.sync(`${realPath}/**/*.y?(a)ml`)
@@ -25,5 +25,5 @@ export default function (folderPath, options) {
     }
   })
 
-  return code
+  return code.toString()
 }
